@@ -6,7 +6,7 @@ import time
 # Run ls /dev/cu.* on terminal to find out all ports
 ser = serial.Serial('/dev/cu.usbmodem141101', 9600)
 
-with open('humidity_data.csv', 'w', newline='') as csvfile:
+with open('arduino/humid_sensor/humidity_data.csv', 'a', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
     
     while True:

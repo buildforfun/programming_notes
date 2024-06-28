@@ -9,24 +9,20 @@ void setup() {
   Serial.begin(9600);
   dht.begin();
   
-  // Print CSV header
-  Serial.println("Timestamp,Humidity,Temperature_C,Temperature_F,HeatIndex_C,HeatIndex_F");
 }
 
 void loop() {
-  delay(10000);
+  delay(1000);
 
   unsigned long timestamp = millis();
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  float f = dht.readTemperature(true);
 
-  if (isnan(h) || isnan(t) || isnan(f)) {
+  if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
 
-  float hif = dht.computeHeatIndex(f, h);
   float hic = dht.computeHeatIndex(t, h, false);
 
   // Print data in CSV format
@@ -36,9 +32,5 @@ void loop() {
   Serial.print(",");
   Serial.print(t);
   Serial.print(",");
-  Serial.print(f);
-  Serial.print(",");
-  Serial.print(hic);
-  Serial.print(",");
-  Serial.println(hif);
+  Serial.println(hic);
 }
